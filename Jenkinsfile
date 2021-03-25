@@ -8,5 +8,29 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
+        stage('Build Docker Image') {
+            when {
+                branch 'master'
+            }
+                steps {
+                    ""
+            }
+        }
+        stage('Push Docker Image') {
+            when {
+                branch 'master'
+            }
+                steps {
+                    ""
+            }
+        }
+        stage('DeployToProduction') {
+            when {
+                branch 'master'
+            }
+                steps {
+                    ""
+            }
+        }
     }
 }
