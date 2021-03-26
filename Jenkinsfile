@@ -14,7 +14,7 @@ pipeline {
             }
                 steps {
                     script {
-                        def myImage = docker.build("train-schedule-app-vovan-version:${env.BUILD_ID}") 
+                        def myImage = docker.build("train-schedule-app-vovan-version") 
 
                         myImage.inside {
                         sh 'echo $(curl localhost:8080)'
@@ -29,7 +29,8 @@ pipeline {
                 steps {
                     script {
                         docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_cred') {
-                            myImage.push()
+                            myImage.push("${env.BUILD_ID}")
+                            myImage.push("latest")
                         }
                     }
             }
