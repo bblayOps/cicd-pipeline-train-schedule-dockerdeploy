@@ -14,7 +14,7 @@ pipeline {
             }
             steps {
                 script {
-                    def myImage = docker.build("bblayOps/trainapp")
+                    def myImage = docker.build("bblayhub/trainapp")
                     myImage.inside {
                         sh 'echo $(curl localhost:8080)'
                         } 
