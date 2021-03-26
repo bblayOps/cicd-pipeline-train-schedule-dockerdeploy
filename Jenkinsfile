@@ -17,7 +17,7 @@ pipeline {
                         def myImage = docker.build("train-schedule-app-vovan-version:${env.BUILD_ID}") 
 
                         myImage.inside {
-                        sh 'echo &(curl localhost:8080)'
+                        sh 'echo $(curl localhost:8080)'
                         }      
                     }
             }
