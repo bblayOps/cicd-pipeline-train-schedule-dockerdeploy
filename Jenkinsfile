@@ -28,7 +28,7 @@ pipeline {
             }
                 steps {
                     script {
-                        docker.withRegistry('https://hub.docker.com', 'docker_hub_cred') {
+                        docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_cred') {
                             customImage.push()
                         }
                     }
