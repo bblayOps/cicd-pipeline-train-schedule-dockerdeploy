@@ -14,7 +14,7 @@ pipeline {
             }
                 steps {
                     script {
-                        def myImage = docker.build("train-schedule-app-vovanVersion:${env.BUILD_ID}") 
+                        def myImage = docker.build("train-schedule-app-vovan-version:${env.BUILD_ID}") 
 
                         testImage.inside {
                         sh 'echo &(curl localhost:8080)'
@@ -28,7 +28,7 @@ pipeline {
             }
                 steps {
                     script {
-                        docker.withRegistry('https://registry.example.com', 'credentials-id') {
+                        docker.withRegistry('https://hub.docker.com', 'docker_hub_cred') {
                             customImage.push()
                         }
                     }
@@ -46,7 +46,7 @@ pipeline {
                         remote.host = $prod_ip
                         remote.allowAnyHosts = true
 
-                        withCredentials([sshUserPrivateKey(credentialsId: 'sshUser', passphraseVariable: 'userPass', usernameVariable: 'userName')]) {
+                        withCredentials([sshUserPrivateKey(credentialsId: 'prod_cred', passphraseVariable: 'userPass', usernameVariable: 'userName')]) {
                         remote.user = userName
                         remote.password = userPass
                         remote.identityFile = identity
