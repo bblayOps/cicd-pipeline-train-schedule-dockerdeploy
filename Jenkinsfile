@@ -12,9 +12,12 @@ pipeline {
             when {
                 branch 'master'
             }
-                steps {
-                    script {
-                        def myImage = docker.build("train-schedule-app/vovan-version")      
+            steps {
+                script {
+                    def myImage = docker.build("train-schedule-app/vovan-version")
+                    myImage.inside {
+                        sh 'echo $(curl localhost:8080)'
+                        } 
                     }
             }
         }
@@ -22,13 +25,13 @@ pipeline {
             when {
                 branch 'master'
             }
-                steps {
-                    script {
-                        docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_cred') {
-                            myImage.push("${env.BUILD_ID}")
-                            myImage.push("latest")
-                        }
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_cred') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
                     }
+                }
             }
         }
         stage('DeployToProduction') {
